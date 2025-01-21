@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
+import { ProviderWrapper } from '../store/provider'
+
 import localFont from 'next/font/local'
-// import { ThemeProvider } from '@repo/ui/theme-mui'
 import './globals.css'
 
 const geistSans = localFont({
@@ -25,8 +26,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
-        {/* <ThemeProvider>{children}</ThemeProvider> */}
+        <ProviderWrapper>{children}</ProviderWrapper>
       </body>
     </html>
   )

@@ -3,13 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./button": "./src/button.tsx",
-    "./card": "./src/card.tsx",
-    "./code": "./src/code.tsx",
-    "./button-mui": "./src/button-mui.tsx",
-    "./theme-mui": "./src/theme-mui.tsx",
-    "./form-mui": "./src/form-mui.tsx",
-    "./input-mui": "./src/input-mui.tsx"
+    ".": "./src/index.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",

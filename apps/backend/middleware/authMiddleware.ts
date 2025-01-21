@@ -1,8 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
 
-/**
- * Middleware to validate the request token.
- */
 export const authMiddleware = (
   req: Request,
   res: Response,
@@ -15,9 +12,8 @@ export const authMiddleware = (
     return
   }
 
-  // Dummy token validation logic
   if (token === 'Bearer dummy-token') {
-    next() // Proceed to the next middleware or route handler
+    next()
   } else {
     res.status(403).json({ message: 'Invalid token.' })
   }

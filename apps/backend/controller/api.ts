@@ -1,18 +1,16 @@
 import { Request, Response } from 'express'
-import { fr } from '../config/firebaseConfig'
 import { z } from 'zod'
 import { User } from '@repo/entities/user'
+
 import {
-  getFirestore,
+  db,
   collection,
   addDoc,
   getDocs,
   updateDoc,
   doc,
   deleteDoc,
-} from 'firebase/firestore'
-
-const db = getFirestore(fr)
+} from '@repo/firebase-config/index'
 
 const createUserSchema = z.object({
   firstName: z.string().min(1, { message: 'First name is required' }),
