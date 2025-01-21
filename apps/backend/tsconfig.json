@@ -1,12 +1,18 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "outDir": "./dist",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "target": "ESNext", // Compiles to the latest ES version for better compatibility
+    "module": "ESNext", // Use ES module system for ESM support
+    "rootDir": "./", // Specify the root directory for input files
+    "outDir": "./dist", // Specify the output directory for compiled files
+    "strict": true, // Enable all strict type-checking options
+    "esModuleInterop": true, // Support interop with CommonJS modules
+    "moduleResolution": "bundler", // Resolve modules using Node.js style
+    "skipLibCheck": true, // Skip checking types in node_modules
+    "forceConsistentCasingInFileNames": true, // Enforce consistent file naming
+    "resolveJsonModule": true, // Allow importing JSON files
+    "sourceMap": true, // Generate source maps for debugging
+    "experimentalDecorators": true, // Enable decorators for advanced features
+    "emitDecoratorMetadata": true // Include metadata for decorators
   },
   "include": ["core/**/*.ts"],
   "exclude": ["node_modules"]

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { add } from "@repo/math/add";
 import "./globals.css";
 
 const geistSans = localFont({

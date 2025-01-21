@@ -2,17 +2,19 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node core/app.ts",
     "build": "tsc",
-    "dev": "nodemon index.ts --turbopack"
+    "clean": "rm -rf dist",
+    "dev": "nodemon --config nodemon.json index.ts",
+    "lint": "tsc --noEmit && TIMING=1 eslint \"src/**/*.ts*\"",
+    "start": "node dist/core/app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@repo/math": "workspace:*",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "firebase": "^11.2.0"
@@ -23,6 +25,8 @@
     "eslint": "^9.15.0",
     "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
+    "tsup": "^6.2.3",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.3"
   }
 }

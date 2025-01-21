@@ -1,6 +1,10 @@
-import {Router} from "express";
-import {createUserData, fetchUserData, updateUserData} from "../controller/api";
-import {authMiddleware} from "../middleware/authMiddleware";
+import { Router } from "express";
+import {
+  createUserData,
+  fetchUserData,
+  updateUserData,
+} from "../controller/api";
+import { authMiddleware } from "../middleware/authMiddleware";
 
 const router = Router();
 
