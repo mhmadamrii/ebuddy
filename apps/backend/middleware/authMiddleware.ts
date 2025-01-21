@@ -1,13 +1,17 @@
-import {Request, Response, NextFunction} from "express";
+import { Request, Response, NextFunction } from "express";
 
 /**
  * Middleware to validate the request token.
  */
-export const authMiddleware = (req: Request, res: Response, next: NextFunction): void => {
+export const authMiddleware = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): void => {
   const token = req.headers.authorization;
 
   if (!token) {
-    res.status(401).json({message: "Authorization token missing."});
+    res.status(401).json({ message: "Authorization token missing." });
     return;
   }
 
@@ -15,6 +19,6 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction):
   if (token === "Bearer dummy-token") {
     next(); // Proceed to the next middleware or route handler
   } else {
-    res.status(403).json({message: "Invalid token."});
+    res.status(403).json({ message: "Invalid token." });
   }
 };

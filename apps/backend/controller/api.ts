@@ -1,12 +1,15 @@
-import {Request, Response} from "express";
-import {getFirestore, collection, addDoc} from "firebase/firestore";
-import {fr} from "../config/firebaseConfig";
+import { Request, Response } from "express";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { fr } from "../config/firebaseConfig";
 
 const db = getFirestore(fr);
 
-export const createUserData = async (req: Request, res: Response): Promise<void> => {
+export const createUserData = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   try {
-    const {firstName, lastName, email, age} = req.body;
+    const { firstName, lastName, email, age } = req.body;
 
     const newUser = await addDoc(collection(db, "users"), {
       firstname: firstName,
@@ -16,10 +19,10 @@ export const createUserData = async (req: Request, res: Response): Promise<void>
 
     console.log("newUser", newUser);
 
-    res.status(201).json({message: "User created successfully."});
+    res.status(201).json({ message: "User created successfully." });
   } catch (error) {
     console.error(error);
-    res.status(500).json({message: "Internal server error.", error});
+    res.status(500).json({ message: "Internal server error.", error });
   }
 };
 
@@ -32,19 +35,22 @@ export const fetchUserData = (req: Request, res: Response) => {
     age: 30,
   };
 
-  res.status(200).json({success: true, data: dummyUser});
+  res.status(200).json({ success: true, data: dummyUser });
 };
 
 /**
  * Controller to update user data
  */
-export const updateUserData = async (req: Request, res: Response): Promise<void> => {
+export const updateUserData = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   try {
-    const {userId, newData} = req.body;
+    const { userId, newData } = req.body;
 
     // Dummy logic for updating user data
     if (!userId || !newData) {
-      res.status(400).json({message: "Missing required fields."});
+      res.status(400).json({ message: "Missing required fields." });
       return;
     }
 
@@ -52,9 +58,9 @@ export const updateUserData = async (req: Request, res: Response): Promise<void>
     console.log(`Updating user with ID: ${userId}`);
     console.log(`New data: ${JSON.stringify(newData)}`);
 
-    res.status(200).json({message: "User data updated successfully."});
+    res.status(200).json({ message: "User data updated successfully." });
   } catch (error) {
     console.error(error);
-    res.status(500).json({message: "Internal server error."});
+    res.status(500).json({ message: "Internal server error." });
   }
 };
