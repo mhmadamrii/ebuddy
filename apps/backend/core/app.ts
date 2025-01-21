@@ -1,7 +1,5 @@
 import express, { Application } from 'express'
 import userRoutes from '../routes/userRoutes'
-import { add, subtract } from '@repo/entities/add'
-import { User } from '@repo/entities/user'
 
 const app: Application = express()
 
@@ -10,16 +8,6 @@ app.use(express.json())
 app.get('/', (req, res) => {
   res.send('Backend server is running!')
 })
-
-const user: User = {
-  userId: '123456789',
-  firstName: 'John',
-  lastName: 'Doe',
-  email: 'john.doe@example.com',
-  age: 30,
-}
-
-console.log(add(1, 2))
 
 app.use('/api/v1', userRoutes)
 

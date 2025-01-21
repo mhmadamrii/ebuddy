@@ -1,10 +1,11 @@
 import { Router } from 'express'
+import { authMiddleware } from '../middleware/authMiddleware'
 import {
   createUserData,
+  deleteUserData,
   fetchUserData,
   updateUserData,
 } from '../controller/api'
-import { authMiddleware } from '../middleware/authMiddleware'
 
 const router = Router()
 
@@ -28,6 +29,14 @@ router.get('/fetch-user-data', authMiddleware, fetchUserData)
  * @route /api/users/update-user-data
  * @access Protected (requires authMiddleware)
  */
-router.put('/update-user-data', authMiddleware, updateUserData)
+router.put('/update-user-data/:id', authMiddleware, updateUserData)
+
+/**
+ * Route to update user data
+ * @method DELETE
+ * @route /api/users/update-user-data
+ * @access Protected (requires authMiddleware)
+ */
+router.delete('/delete-user-data/:id', authMiddleware, deleteUserData)
 
 export default router
