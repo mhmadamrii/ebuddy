@@ -20,9 +20,9 @@ importers:
 
   apps/backend:
     dependencies:
-      '@repo/math':
+      '@repo/entities':
         specifier: workspace:*
-        version: link:../../packages/math
+        version: link:../../packages/entities
       cors:
         specifier: ^2.8.5
         version: 2.8.5
@@ -60,9 +60,9 @@ importers:
 
   apps/frontend:
     dependencies:
-      '@repo/math':
+      '@repo/entities':
         specifier: workspace:*
-        version: link:../../packages/math
+        version: link:../../packages/entities
       '@repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -94,6 +94,15 @@ importers:
       typescript:
         specifier: 5.5.4
         version: 5.5.4
+
+  packages/entities:
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      typescript:
+        specifier: latest
+        version: 5.7.3
 
   packages/eslint-config:
     devDependencies:
@@ -130,15 +139,6 @@ importers:
       typescript-eslint:
         specifier: ^8.15.0
         version: 8.20.0(eslint@9.18.0)(typescript@5.7.3)
-
-  packages/math:
-    devDependencies:
-      '@repo/typescript-config':
-        specifier: workspace:*
-        version: link:../typescript-config
-      typescript:
-        specifier: latest
-        version: 5.7.3
 
   packages/typescript-config: {}
 

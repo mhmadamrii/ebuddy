@@ -1,26 +1,26 @@
-import { Router } from "express";
+import { Router } from 'express'
 import {
   createUserData,
   fetchUserData,
   updateUserData,
-} from "../controller/api";
-import { authMiddleware } from "../middleware/authMiddleware";
+} from '../controller/api'
+import { authMiddleware } from '../middleware/authMiddleware'
 
-const router = Router();
+const router = Router()
 
 /**
  * Route to fetch user data
  * @method POST
  * @access Protected
  */
-router.post("/create-user-data", authMiddleware, createUserData);
+router.post('/create-user-data', authMiddleware, createUserData)
 
 /**
  * Route to fetch user data
  * @method GET
  * @access Protected
  */
-router.get("/fetch-user-data", authMiddleware, fetchUserData);
+router.get('/fetch-user-data', authMiddleware, fetchUserData)
 
 /**
  * Route to update user data
@@ -28,6 +28,6 @@ router.get("/fetch-user-data", authMiddleware, fetchUserData);
  * @route /api/users/update-user-data
  * @access Protected (requires authMiddleware)
  */
-router.put("/update-user-data", authMiddleware, updateUserData);
+router.put('/update-user-data', authMiddleware, updateUserData)
 
-export default router;
+export default router
