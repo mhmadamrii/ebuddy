@@ -1,7 +1,13 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import { useDispatch, useSelector } from 'react-redux'
+import { setStatus } from 'store/slices/stateSlice'
+import { loginFirebase, registerFirebase } from 'app/actions/auth.action'
+import { Loader } from 'components/loader'
+import { z } from 'zod'
 
 import {
   Box,
@@ -13,17 +19,18 @@ import {
   FormControl,
 } from '@repo/ui'
 
-import {
-  auth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from '@repo/firebase-config/index'
-
 interface TabPanelProps {
   children?: React.ReactNode
   index: number
   value: number
 }
+
+const AuthSchema = z.object({
+  email: z.string().email({ message: 'Invalid email address' }),
+  password: z
+    .string()
+    .min(8, { message: 'Password must be at least 8 characters' }),
+})
 
 function a11yProps(index: number) {
   return {
@@ -57,43 +64,69 @@ function CustomTabPanel(props: TabPanelProps) {
 }
 
 function FormInput({ type }: { type: string }) {
+  const dispatch = useDispatch()
+  const router = useRouter()
+  const { isPending } = useSelector((state: any) => state.app_state)
+
   const [valueInput, setValueInput] = useState({
     email: '',
     password: '',
   })
 
   const handleSubmit = async () => {
-    if (!valueInput.email || !valueInput.password) {
-      toast.error('Please fill in all fields')
+    const result = AuthSchema.safeParse(valueInput)
+
+    if (!result.success) {
+      const validate = result.error.errors
+      validate.forEach((error, index) => {
+        setTimeout(() => {
+          toast.error(error.message)
+        }, index * 800)
+      })
+
       return
     }
-    try {
-      if (type === 'Login') {
-        const userCredential = await signInWithEmailAndPassword(
-          auth,
-          valueInput.email,
-          valueInput.password,
-        )
-      } else {
-        console.log('register', valueInput)
-        const userCredential = await createUserWithEmailAndPassword(
-          auth,
-          valueInput.email,
-          valueInput.password,
-        )
-        if (userCredential.user.accessToken) {
-          toast.success('Login Successful')
-        }
 
-        // set redux persist access token
+    dispatch(setStatus(true))
+    try {
+      switch (type) {
+        case 'Login':
+          const login = await loginFirebase({
+            email: valueInput.email,
+            password: valueInput.password,
+          })
+          if (login?.type === 'LOGIN_SUCCESS') {
+            router.push('/')
+          } else {
+            toast.error('failed to login')
+          }
+          break
+
+        case 'Register':
+          const register = await registerFirebase({
+            email: valueInput.email,
+            password: valueInput.password,
+          })
+          if (register?.type === 'REGISTER_SUCCESS') {
+            router.push('/')
+          } else {
+            toast.error('failed to register')
+          }
+          break
+
+        default:
+          break
       }
     } catch (error: any) {
       toast.error(error.message)
+    } finally {
+      dispatch(setStatus(false))
     }
   }
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-      <Typography variant='h4'>{type}</Typography>
+      <Typography variant='h4'>{isPending ? 'Loading...' : type}</Typography>
       <FormControl sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <TextField
           onChange={e =>
@@ -103,6 +136,7 @@ function FormInput({ type }: { type: string }) {
           label='Email'
           variant='outlined'
           value={valueInput.email}
+          type='email'
         />
         <TextField
           onChange={e =>
@@ -112,9 +146,14 @@ function FormInput({ type }: { type: string }) {
           label='Password'
           variant='outlined'
           value={valueInput.password}
+          type='text'
         />
-        <Button onClick={handleSubmit} variant='contained'>
-          Submit
+        <Button
+          disabled={isPending}
+          onClick={handleSubmit}
+          variant={isPending ? 'outlined' : 'contained'}
+        >
+          {isPending ? <Loader /> : 'Submit'}
         </Button>
       </FormControl>
     </Box>
