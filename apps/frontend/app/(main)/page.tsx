@@ -5,6 +5,7 @@ import { Box, Container, Typography } from '@repo/ui'
 import { CardUser } from './_components/card-user'
 import { DialogAddUser } from './_components/dialog-add-user'
 import { Loader } from 'components/loader'
+import { Logout } from './_components/logout'
 
 async function HomeWithServerDaa() {
   const usersRef = collection(db, 'users')
@@ -38,7 +39,10 @@ export default function Home() {
         }}
       >
         <Typography variant='h4'>User List</Typography>
-        <DialogAddUser />
+        <Box sx={{ display: 'flex', gap: 2 }}>
+          <Logout />
+          <DialogAddUser />
+        </Box>
       </Box>
       <Box
         sx={{

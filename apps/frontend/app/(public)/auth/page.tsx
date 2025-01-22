@@ -49,9 +49,6 @@ function CustomTabPanel(props: TabPanelProps) {
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
-      style={{
-        border: '1px solid black',
-      }}
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
@@ -168,13 +165,21 @@ export default function Auth() {
   }
 
   return (
-    <div>
+    <Box
+      sx={{
+        flexGrow: 1,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
+      }}
+    >
       <Box
         sx={{
-          borderBottom: 1,
           borderColor: 'divider',
           alignItems: 'center',
           justifyContent: 'center',
+          display: 'flex',
         }}
       >
         <Tabs
@@ -186,12 +191,14 @@ export default function Auth() {
           <Tab label='Register' {...a11yProps(1)} />
         </Tabs>
       </Box>
-      <CustomTabPanel value={value} index={0}>
-        <FormInput type='Login' />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        <FormInput type='Register' />
-      </CustomTabPanel>
-    </div>
+      <div style={{ width: '100%' }}>
+        <CustomTabPanel value={value} index={0}>
+          <FormInput type='Login' />
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={1}>
+          <FormInput type='Register' />
+        </CustomTabPanel>
+      </div>
+    </Box>
   )
 }

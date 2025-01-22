@@ -6,6 +6,7 @@ import {
   auth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
 } from '@repo/firebase-config/index'
 
 interface AuthProps {
@@ -51,6 +52,13 @@ export async function registerFirebase({ email, password }: AuthProps) {
     )) as unknown as User
 
     if (userCredential.user.accessToken) {
+      const cookieStore = await cookies()
+      cookieStore.set('accessToken', userCredential.user.accessToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 60 * 60 * 24 * 7,
+      })
       return {
         type: 'REGISTER_SUCCESS',
       }
@@ -59,6 +67,15 @@ export async function registerFirebase({ email, password }: AuthProps) {
     return {
       type: 'REGISTER_FAILED',
     }
+  } catch (error: any) {
+    console.log(error)
+  }
+}
+
+export async function logout() {
+  try {
+    ;(await cookies()).set('accessToken', '')
+    await signOut(auth)
   } catch (error: any) {
     console.log(error)
   }
