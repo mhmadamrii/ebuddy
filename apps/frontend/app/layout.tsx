@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { ProviderWrapper } from '../store/provider'
+import { Toaster } from 'sonner'
 
 import localFont from 'next/font/local'
 import './globals.css'
@@ -26,7 +27,10 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <ProviderWrapper>{children}</ProviderWrapper>
+        <ProviderWrapper>
+          <Toaster richColors />
+          {children}
+        </ProviderWrapper>
       </body>
     </html>
   )

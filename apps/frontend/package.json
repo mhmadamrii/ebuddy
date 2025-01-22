@@ -21,13 +21,14 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-redux": "^9.2.0",
-    "redux": "^5.0.1"
+    "redux": "^5.0.1",
+    "sonner": "^1.7.2"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
-    "@repo/firebase-config": "workspace:*",
     "@repo/entities": "workspace:*",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/firebase-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
     "@types/node": "^20",
     "@types/react": "18.3.1",
     "@types/react-dom": "18.3.0",

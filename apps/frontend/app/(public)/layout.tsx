@@ -5,5 +5,10 @@ export default function PublicLayout({
 }: {
   children: React.ReactNode
 }) {
-  return <Container>{children}</Container>
+  return (
+    <Container>
+      {/* @ts-expect-error: passing children */}
+      {children}
+    </Container>
+  )
 }
