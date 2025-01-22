@@ -6,12 +6,11 @@ import { DialogEditUser } from './dialog-edit'
 
 export function CardUser({ users }: { users: User[] }) {
   return users.map(user => (
-    <Card sx={{ width: { xs: 1, md: 1 / 3 } }} key={user.id}>
+    <Card sx={{ width: { xs: 1, md: 1 / 4 } }} key={user.id}>
       <CardContent>
         <Typography variant='h5'>{user.firstName}</Typography>
         <Typography variant='body1'>{user.lastName}</Typography>
         <Typography variant='body2'>{user.email}</Typography>
-        <Typography variant='body2'>{user.age}</Typography>
         <DialogEditUser />
       </CardContent>
     </Card>

@@ -3,6 +3,8 @@ import { db, collection, getDocs } from '@repo/firebase-config/index'
 import { Suspense } from 'react'
 import { Box, Container, Typography } from '@repo/ui'
 import { CardUser } from './_components/card-user'
+import { DialogAddUser } from './_components/dialog-add-user'
+import { Loader } from 'components/loader'
 
 async function HomeWithServerDaa() {
   const usersRef = collection(db, 'users')
@@ -23,19 +25,31 @@ export default function Home() {
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
+        paddingTop: { xs: 2, md: 8 },
+        paddingBottom: { xs: 2, md: 8 },
+        gap: 5,
       }}
     >
-      <Typography variant='h4' sx={{ mb: 2 }}>
-        User List
-      </Typography>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <Typography variant='h4'>User List</Typography>
+        <DialogAddUser />
+      </Box>
       <Box
         sx={{
           display: 'flex',
           flexDirection: { xs: 'column', md: 'row' },
+          flexWrap: 'wrap',
+          justifyContent: 'center',
           gap: 2,
         }}
       >
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loader />}>
           <HomeWithServerDaa />
         </Suspense>
       </Box>
