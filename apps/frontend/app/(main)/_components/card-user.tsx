@@ -2,7 +2,7 @@ import { User } from '@repo/entities/user'
 import { Card } from '@repo/ui'
 import { CardContent } from '@repo/ui'
 import { Typography } from '@repo/ui'
-import { DialogEditUser } from './dialog-edit'
+import { DialogEditUser } from './dialog-edit-user'
 
 export function CardUser({ users }: { users: User[] }) {
   return users.map(user => (
@@ -11,7 +11,7 @@ export function CardUser({ users }: { users: User[] }) {
         <Typography variant='h5'>{user.firstName}</Typography>
         <Typography variant='body1'>{user.lastName}</Typography>
         <Typography variant='body2'>{user.email}</Typography>
-        <DialogEditUser />
+        <DialogEditUser user={user} />
       </CardContent>
     </Card>
   ))

@@ -3,12 +3,13 @@
 import * as React from 'react'
 
 import { Loader } from 'components/loader'
+import { User } from '@repo/entities/user'
 import { setStatus } from 'store/slices/stateSlice'
-import { TransitionProps } from '@mui/material/transitions'
+import { TransitionProps } from '@repo/ui'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/navigation'
 import { z } from 'zod'
-import { addUser } from 'app/actions/user.action'
+import { addUser, editUser } from 'app/actions/user.action'
 import { toast } from 'sonner'
 
 import {
@@ -17,7 +18,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   Slide,
   TextField,
@@ -38,7 +38,7 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction='up' ref={ref} {...props} />
 })
 
-export function DialogAddUser() {
+export function DialogEditUser({ user }: { user: User }) {
   const router = useRouter()
   const dispatch = useDispatch()
   const { isPending } = useSelector((state: any) => state.app_state)
@@ -58,7 +58,7 @@ export function DialogAddUser() {
     setOpen(false)
   }
 
-  const handleAddUser = async () => {
+  const handleEditUser = async () => {
     const validation = createUserSchema.safeParse(valueInput)
 
     if (!validation.success) {
@@ -74,14 +74,14 @@ export function DialogAddUser() {
 
     dispatch(setStatus(true))
 
-    const result = await addUser({
+    const result = await editUser({
+      id: user.id,
       firstName: valueInput.firstName,
       lastName: valueInput.lastName,
       email: valueInput.email,
-      age: 10,
     })
 
-    if (result?.type === 'ADD_USER_SUCCESS') {
+    if (result?.type === 'EDIT_USER_SUCCESS') {
       toast.success('User added successfully')
       setValueInput({
         firstName: '',
@@ -95,14 +95,25 @@ export function DialogAddUser() {
     }
   }
 
+  React.useEffect(() => {
+    if (user) {
+      setValueInput({
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        age: '33',
+      })
+    }
+  }, [user])
+
   return (
     <React.Fragment>
       <Button
         variant='contained'
-        sx={{ width: 130, height: 40 }}
+        sx={{ width: '100%' }}
         onClick={handleClickOpen}
       >
-        Add User
+        Edit User
       </Button>
 
       <Dialog
@@ -114,7 +125,7 @@ export function DialogAddUser() {
         aria-describedby='alert-dialog-slide-description'
         maxWidth='md'
       >
-        <DialogTitle>Add New User</DialogTitle>
+        <DialogTitle>Edit User</DialogTitle>
         <DialogContent>
           <Box
             sx={{
@@ -162,9 +173,9 @@ export function DialogAddUser() {
           <Button
             sx={{ width: 100 }}
             variant={isPending ? 'outlined' : 'contained'}
-            onClick={handleAddUser}
+            onClick={handleEditUser}
           >
-            {isPending ? <Loader /> : 'Submit'}
+            {isPending ? <Loader /> : 'Edit'}
           </Button>
         </DialogActions>
       </Dialog>

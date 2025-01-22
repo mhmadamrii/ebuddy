@@ -1,7 +1,7 @@
 {
   "extends": "@repo/typescript-config/nextjs.json",
   "compilerOptions": {
-    "declaration": false, // please just ignore this thing, Everything just messed up when dealing with redux :v
+    "declaration": false, // please just ignore this thing, Everything is just messed up when dealing with redux :v
     "plugins": [
       {
         "name": "next"

@@ -11,8 +11,8 @@ export const Loader = React.memo(() => (
       cx='40'
       cy='65'
       r='15'
-      fill='#4A7EFF'
-      stroke='#4A7EFF'
+      fill='#2a9461'
+      stroke='#2a9461'
       strokeWidth='15'
     >
       <animate
@@ -29,8 +29,8 @@ export const Loader = React.memo(() => (
       cx='100'
       cy='65'
       r='15'
-      fill='#4A7EFF'
-      stroke='#4A7EFF'
+      fill='#2a9461'
+      stroke='#2a9461'
       strokeWidth='15'
     >
       <animate
@@ -47,8 +47,8 @@ export const Loader = React.memo(() => (
       cx='160'
       cy='65'
       r='15'
-      fill='#4A7EFF'
-      stroke='#4A7EFF'
+      fill='#2a9461'
+      stroke='#2a9461'
       strokeWidth='15'
     >
       <animate

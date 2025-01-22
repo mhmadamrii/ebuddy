@@ -4,6 +4,7 @@ import { Toaster } from 'sonner'
 
 import localFont from 'next/font/local'
 import './globals.css'
+import { ThemeMUIProvider } from 'theme'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -27,10 +28,12 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <ProviderWrapper>
-          <Toaster richColors />
-          {children}
-        </ProviderWrapper>
+        <ThemeMUIProvider>
+          <ProviderWrapper>
+            <Toaster richColors />
+            {children}
+          </ProviderWrapper>
+        </ThemeMUIProvider>
       </body>
     </html>
   )
