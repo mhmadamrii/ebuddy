@@ -30,7 +30,5 @@ pnpm build
 pnpm run dev
 ```
 
-- open [http://localhost:3000](http://localhost:3000) with your browser to see
-  frontend.
-- open [http://localhost:5000](http://localhost:5000) with your browser to see
-  backend.
+- open [http://localhost:3000](http://localhost:3000)
+- open [http://localhost:5000](http://localhost:5000)
