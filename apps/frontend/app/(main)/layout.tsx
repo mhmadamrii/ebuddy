@@ -8,7 +8,6 @@ export default async function MainLayout({
 }) {
   const cookieStore = await cookies()
   const accessToken = cookieStore.get('accessToken')
-  console.log(accessToken)
   if (!accessToken?.value) {
     redirect('/auth')
   }
